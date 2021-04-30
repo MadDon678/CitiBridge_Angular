@@ -1,8 +1,9 @@
-export class UserHistory{
+export class UserHistory
+{
+    userId: number;
     userName: string;
+    stockName: string;
     sector: string;
     quantity: number;
-    stockName: string;
     currentPrice: number;
-
 }

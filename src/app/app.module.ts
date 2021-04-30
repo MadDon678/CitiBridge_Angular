@@ -19,6 +19,7 @@ import {MessageService} from 'primeng/api';
 import {ToastModule } from 'primeng/toast';
 import {AuthguardService} from './authguard.service';
 import {TabViewModule} from 'primeng/tabview';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import {TabViewModule} from 'primeng/tabview';
     RouterModule,
     AppRoutingModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    TableModule
   ],
   declarations: [
     AppComponent,

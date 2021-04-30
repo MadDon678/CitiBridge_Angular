@@ -16,6 +16,7 @@ import { RecommendationsComponent } from '../../recommendations/recommendations.
 import {DropdownModule} from 'primeng/dropdown';
 import { ButtonModule  } from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {TabViewModule} from 'primeng/tabview';
     FormsModule,
     ChartsModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    TableModule
   ],
   declarations: [
     DashboardComponent,
