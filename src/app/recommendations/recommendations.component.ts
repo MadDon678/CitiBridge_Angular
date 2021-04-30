@@ -1,44 +1,59 @@
+import {MessageService} from 'primeng/api'
 import { Component, OnInit } from '@angular/core';
-import * as Chartist from 'chartist';
+import { SelectItem } from 'primeng/api';
+import {RecommendationsService} from '../services/recommendations.service'
+import { TableHeadings } from '../model/table-headings';
 
 @Component({
   selector: 'app-recommendations',
   templateUrl: './recommendations.component.html',
   styleUrls: ['./recommendations.component.css']
+  
 })
+
 export class RecommendationsComponent implements OnInit {
-  public lineBigDashboardChartType;
+
+  tableHeadings : TableHeadings[] ;
+  hasError: boolean = false;
+  parameters: SelectItem[];
+  sectorList: SelectItem[];
+  selectedParameter :  string = "growth";
+  selectedSector : string = "automobile";
+  showTable : boolean = true;
+  messageService: MessageService ;
   public gradientStroke;
   public chartColor;
   public canvas : any;
   public ctx;
   public gradientFill;
-  public lineBigDashboardChartData:Array<any>;
-  public lineBigDashboardChartOptions:any;
-  public lineBigDashboardChartLabels:Array<any>;
-  public lineBigDashboardChartColors:Array<any>
-
   public gradientChartOptionsConfiguration: any;
   public gradientChartOptionsConfigurationWithNumbersAndGrid: any;
-
-  public lineChartType;
-  public lineChartData:Array<any>;
-  public lineChartOptions:any;
-  public lineChartLabels:Array<any>;
-  public lineChartColors:Array<any>
-
-  public lineChartWithNumbersAndGridType;
-  public lineChartWithNumbersAndGridData:Array<any>;
-  public lineChartWithNumbersAndGridOptions:any;
-  public lineChartWithNumbersAndGridLabels:Array<any>;
-  public lineChartWithNumbersAndGridColors:Array<any>
-
   public lineChartGradientsNumbersType;
   public lineChartGradientsNumbersData:Array<any>;
   public lineChartGradientsNumbersOptions:any;
   public lineChartGradientsNumbersLabels:Array<any>;
   public lineChartGradientsNumbersColors:Array<any>
+
   // events
+
+  public recommendationClick($event: any):void
+  {
+
+    console.log("Get Recommendation Button is Clicked !" , $event) ;
+
+    if (this.selectedSector.length == 0 || this.selectedParameter.length == 0) 
+    {
+      this.hasError = true;
+      return;
+    } 
+    else 
+    {
+      this.hasError = false;
+      //this.getRecommendation() ;
+      //Show Recommendation Table for selected sector & parameter : Buy, Sell
+    }
+  }
+
   public chartClicked(e:any):void {
     console.log(e);
   }
@@ -57,282 +72,101 @@ export class RecommendationsComponent implements OnInit {
       return "rgb(" + r + ", " + g + ", " + b + ")";
     }
   }
-  constructor() { }
 
-  ngOnInit() {
-    this.chartColor = "#FFFFFF";
-    this.canvas = document.getElementById("bigDashboardChart");
-    this.ctx = this.canvas.getContext("2d");
+  constructor(private recommendationService: RecommendationsService )
+  
+  { 
+    this.sectorList = 
+     [ 
+       { label:"Automobile", value: "automobile"},
+       { label:"Banking", value: "banking"},
+       { label:"Cement", value: "cement"},
+       { label:"Energy", value: "energy"},
+       { label:"Information Technology", value: "informationTechnology"}   
+    ],
 
-    this.gradientStroke = this.ctx.createLinearGradient(500, 0, 100, 0);
-    this.gradientStroke.addColorStop(0, '#80b6f4');
-    this.gradientStroke.addColorStop(1, this.chartColor);
+    this.parameters = 
+     [ 
+       { label:"Growth", value: "growth"},
+       { label:"Moving Average", value: "movingAverage"},
+       { label:"Volatility", value: "volatility"},
+       { label:"Momentum", value: "momentum"},
+       { label:"Volume", value: "volume"}   
+    ];
 
-    this.gradientFill = this.ctx.createLinearGradient(0, 200, 0, 50);
-    this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    this.gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");
+    
+  }
 
-    this.lineBigDashboardChartData = [
-        {
-          label: "Data",
+  ngOnInit() :void
+  {
 
-          pointBorderWidth: 1,
-          pointHoverRadius: 7,
-          pointHoverBorderWidth: 2,
-          pointRadius: 5,
-          fill: true,
-
-          borderWidth: 2,
-          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
-        }
-      ];
-      this.lineBigDashboardChartColors = [
-       {
-         backgroundColor: this.gradientFill,
-         borderColor: this.chartColor,
-         pointBorderColor: this.chartColor,
-         pointBackgroundColor: "#2c2c2c",
-         pointHoverBackgroundColor: "#2c2c2c",
-         pointHoverBorderColor: this.chartColor,
-       }
-     ];
-    this.lineBigDashboardChartLabels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    this.lineBigDashboardChartOptions = {
-
-          layout: {
-              padding: {
-                  left: 20,
-                  right: 20,
-                  top: 0,
-                  bottom: 0
-              }
-          },
-          maintainAspectRatio: false,
-          tooltips: {
-            backgroundColor: '#fff',
-            titleFontColor: '#333',
-            bodyFontColor: '#666',
-            bodySpacing: 4,
-            xPadding: 12,
-            mode: "nearest",
-            intersect: 0,
-            position: "nearest"
-          },
-          legend: {
-              position: "bottom",
-              fillStyle: "#FFF",
-              display: false
-          },
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      fontColor: "rgba(255,255,255,0.4)",
-                      fontStyle: "bold",
-                      beginAtZero: true,
-                      maxTicksLimit: 5,
-                      padding: 10
-                  },
-                  gridLines: {
-                      drawTicks: true,
-                      drawBorder: false,
-                      display: true,
-                      color: "rgba(255,255,255,0.1)",
-                      zeroLineColor: "transparent"
-                  }
-
-              }],
-              xAxes: [{
-                  gridLines: {
-                      zeroLineColor: "transparent",
-                      display: false,
-
-                  },
-                  ticks: {
-                      padding: 10,
-                      fontColor: "rgba(255,255,255,0.4)",
-                      fontStyle: "bold"
-                  }
-              }]
-          }
-    };
-
-    this.lineBigDashboardChartType = 'line';
-
-
-    this.gradientChartOptionsConfiguration = {
-      maintainAspectRatio: false,
-      legend: {
-        display: false
+    this.tableHeadings =
+    [
+      {
+        companyName : "Bal Pharma",
+        currentPrice : 334 ,
+        bidPrice : 345,
+        change : 5.6,
+        marketCap : 54678 
       },
-      tooltips: {
-        bodySpacing: 4,
-        mode: "nearest",
-        intersect: 0,
-        position: "nearest",
-        xPadding: 10,
-        yPadding: 10,
-        caretPadding: 10
+      
+      {
+        companyName : "Infosys",
+        currentPrice : 45 ,
+        bidPrice : 50,
+        change : 7.6,
+        marketCap : 245678 
       },
-      responsive: 1,
-      scales: {
-        yAxes: [{
-          display: 0,
-          ticks: {
-            display: false
-          },
-          gridLines: {
-            zeroLineColor: "transparent",
-            drawTicks: false,
-            display: false,
-            drawBorder: false
-          }
-        }],
-        xAxes: [{
-          display: 0,
-          ticks: {
-            display: false
-          },
-          gridLines: {
-            zeroLineColor: "transparent",
-            drawTicks: false,
-            display: false,
-            drawBorder: false
-          }
-        }]
+
+      {
+        companyName : "Citi Bank",
+        currentPrice : 234 ,
+        bidPrice : 245,
+        change : 10 ,
+        marketCap : 467899
       },
-      layout: {
-        padding: {
-          left: 0,
-          right: 0,
-          top: 15,
-          bottom: 15
-        }
+
+      {
+        companyName : "Schneider Electric",
+        currentPrice : 456 ,
+        bidPrice : 500,
+        change : 8.6 ,
+        marketCap : 3458495 
+      },
+
+      {
+        companyName : "MasterCard",
+        currentPrice : 89 ,
+        bidPrice : 100,
+        change : 9 ,
+        marketCap : 89765 
       }
-    };
+    ]
+    
+    //Sector
+     this.recommendationService.getSector()
+     .subscribe((result : string[]) =>{
+      if(result == null )
+      {
+        this.messageService.add({severity : 'error', summary : 'Error',detail : 'Incorrect Sector'}) ;
 
-    this.gradientChartOptionsConfigurationWithNumbersAndGrid = {
-      maintainAspectRatio: false,
-      legend: {
-        display: false
-      },
-      tooltips: {
-        bodySpacing: 4,
-        mode: "nearest",
-        intersect: 0,
-        position: "nearest",
-        xPadding: 10,
-        yPadding: 10,
-        caretPadding: 10
-      },
-      responsive: true,
-      scales: {
-        yAxes: [{
-          gridLines: {
-            zeroLineColor: "transparent",
-            drawBorder: false
-          },
-          ticks: {
-              stepSize: 500
-          }
-        }],
-        xAxes: [{
-          display: 0,
-          ticks: {
-            display: false
-          },
-          gridLines: {
-            zeroLineColor: "transparent",
-            drawTicks: false,
-            display: false,
-            drawBorder: false
-          }
-        }]
-      },
-      layout: {
-        padding: {
-          left: 0,
-          right: 0,
-          top: 15,
-          bottom: 15
-        }
       }
-    };
 
-    this.canvas = document.getElementById("lineChartExample");
-    this.ctx = this.canvas.getContext("2d");
+      else
+      {
+      result.forEach(sectorName  => {
 
-    this.gradientStroke = this.ctx.createLinearGradient(500, 0, 100, 0);
-    this.gradientStroke.addColorStop(0, '#80b6f4');
-    this.gradientStroke.addColorStop(1, this.chartColor);
+         this.sectorList.push({label: sectorName, value : result[0]});
+       }), (err: any) =>{
+            this.messageService.add({severity: 'error', summary : 'Error',detail : 'Unable to fetch data, server down '  })
+           }
 
-    this.gradientFill = this.ctx.createLinearGradient(0, 170, 0, 50);
-    this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    this.gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+      }
 
-    this.lineChartData = [
-        {
-          label: "Active Users",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
-        }
-      ];
-      this.lineChartColors = [
-       {
-         borderColor: "#f96332",
-         pointBorderColor: "#FFF",
-         pointBackgroundColor: "#f96332",
-         backgroundColor: this.gradientFill
-       }
-     ];
-    this.lineChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    this.lineChartOptions = this.gradientChartOptionsConfiguration;
-
-    this.lineChartType = 'line';
-
-    this.canvas = document.getElementById("lineChartExampleWithNumbersAndGrid");
-    this.ctx = this.canvas.getContext("2d");
-
-    this.gradientStroke = this.ctx.createLinearGradient(500, 0, 100, 0);
-    this.gradientStroke.addColorStop(0, '#18ce0f');
-    this.gradientStroke.addColorStop(1, this.chartColor);
-
-    this.gradientFill = this.ctx.createLinearGradient(0, 170, 0, 50);
-    this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    this.gradientFill.addColorStop(1, this.hexToRGB('#18ce0f', 0.4));
-
-    this.lineChartWithNumbersAndGridData = [
-        {
-          label: "Email Stats",
-           pointBorderWidth: 2,
-           pointHoverRadius: 4,
-           pointHoverBorderWidth: 1,
-           pointRadius: 4,
-           fill: true,
-           borderWidth: 2,
-          data: [40, 500, 650, 700, 1200, 1250, 1300, 1900]
-        }
-      ];
-      this.lineChartWithNumbersAndGridColors = [
-       {
-         borderColor: "#18ce0f",
-         pointBorderColor: "#FFF",
-         pointBackgroundColor: "#18ce0f",
-         backgroundColor: this.gradientFill
-       }
-     ];
-    this.lineChartWithNumbersAndGridLabels = ["12pm,", "3pm", "6pm", "9pm", "12am", "3am", "6am", "9am"];
-    this.lineChartWithNumbersAndGridOptions = this.gradientChartOptionsConfigurationWithNumbersAndGrid;
-
-    this.lineChartWithNumbersAndGridType = 'line';
-
-
-
-
+    }, err => {
+      
+    })
+    
     this.canvas = document.getElementById("barChartSimpleGradientsNumbers");
     this.ctx = this.canvas.getContext("2d");
 
@@ -343,14 +177,14 @@ export class RecommendationsComponent implements OnInit {
 
     this.lineChartGradientsNumbersData = [
         {
-          label: "Active Countries",
+          label: "Growth",
           pointBorderWidth: 2,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 1,
           pointRadius: 4,
           fill: true,
           borderWidth: 1,
-          data: [80, 99, 86, 96, 123, 85, 100, 75, 88, 90, 123, 155]
+          data: [150, 99, 86, 96, 123]
         }
       ];
     this.lineChartGradientsNumbersColors = [
@@ -361,7 +195,7 @@ export class RecommendationsComponent implements OnInit {
        pointBackgroundColor: "#2CA8FF",
      }
    ];
-    this.lineChartGradientsNumbersLabels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    this.lineChartGradientsNumbersLabels = ["Bal Pharma", "TCS", "Infosys", "Walmart", "MasterCard"];
     this.lineChartGradientsNumbersOptions = {
         maintainAspectRatio: false,
         legend: {
@@ -411,5 +245,27 @@ export class RecommendationsComponent implements OnInit {
       }
 
     this.lineChartGradientsNumbersType = 'bar';
+
   }
-}
+  // getRecommendation()
+  // {
+  //    this.recommendationService.getRecommendation(this.selectedSector, this.selectedParameter).subscribe((result : boolean) =>
+  //   {
+  //      if(result == null )
+  //      {
+  //        this.messageService.add({severity : 'error', summary : 'Error',detail : 'Incorrect Sector or Parameter'}) ;
+
+  //      }
+  //      else
+  //      {
+   
+  //          this.showTable = true ;
+
+  //       }), (err: any) =>{
+  //            this.messageService.add({severity: 'error', summary : 'Error',detail : 'Unable to fetch data, server down '  })
+  //           }
+
+  //    }
+
+    
+     }

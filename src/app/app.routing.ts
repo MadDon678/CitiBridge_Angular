@@ -4,31 +4,32 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-
-import {LoginComponent} from './components/login/login.component' ;
-import {DashboardComponent} from './dashboard/dashboard.component' ;
-import {AuthenticationGuard} from './authentication.guard' ;
+import { LoginComponent } from './login/login.component';
+// import { AuthguardService } from './authguard.service';
 
 const routes: Routes =[
-  // {
-  //   path: '',
-  //   redirectTo: 'dashboard',
-  //   pathMatch: 'full',
-  // }, {
-  //   path: '',
-  //   component: AdminLayoutComponent,
-  //   children: [
-  //       {
-  //     path: '',
-  //     loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  // }]},
-  // {
-  //   path: '**',
-  //   redirectTo: 'dashboard'
-  // },
-  {path:'', redirectTo : "/login", pathMatch : 'full'} ,
-  {path : 'login', component : LoginComponent} ,
-  {path : 'dashboard', component : DashboardComponent, canActivate:[AuthenticationGuard]}
+  {
+    path: '',
+    redirectTo: 'login',
+    // canActivate : [AuthguardService],
+    pathMatch: 'full',
+  }, {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full',
+  }, {
+
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+        {
+      path: '',
+      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+  }]},
+  {
+    path: '**',
+    redirectTo: 'dashboard'
+  }
 ];
 
 @NgModule({
@@ -38,7 +39,6 @@ const routes: Routes =[
     RouterModule.forRoot(routes)
   ],
   exports: [
-    RouterModule
   ],
 })
 export class AppRoutingModule { }

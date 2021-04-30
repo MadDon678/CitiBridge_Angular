@@ -88,16 +88,18 @@
 
             > a{
                 margin: 10px 15px 0;
+                font-weight: 400;
                 border-radius: $btn-round-radius;
                 color: $white-color;
                 display: block;
                 text-decoration: none;
                 position: relative;
-                text-transform: uppercase;
+                text-transform: capitalize;
                 cursor: pointer;
-                font-size: $font-size-mini;
+                font-size: 15px;
                 padding: 10px 8px;
                 line-height: $line-height-nav-link;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             }
 
             &:first-child > a{
@@ -163,6 +165,7 @@
         left: 0;
         background-size: cover;
         background-position: center center;
+       
 
         &:after{
             position: absolute;
@@ -222,16 +225,17 @@
         }
 
         .simple-text{
-            text-transform: uppercase;
+            text-transform: capitalize;
             padding: $padding-base-vertical 0;
             display: block;
             white-space: nowrap;
-            font-size: $font-size-large;
+            font-size: 28px;
             color: $white-color;
             text-decoration: none;
-            font-weight: $font-weight-normal;
             line-height: 30px;
             overflow: hidden;
+            font-weight: 500;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
     }
 

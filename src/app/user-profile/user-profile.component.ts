@@ -11,15 +11,17 @@ export class UserProfileComponent implements OnInit {
 
   user : User;
   userHistory : UserHistory[];
+  imgUrl: string;
   constructor() { }
 
   ngOnInit() {
    this.user = {
-      userName : "Madhura",
+      userName : "mike",
       firstName: "Madhura",
       lastName: "Dongare",
       password: "abc"
     }
+     this.imgUrl = "../assets/img/"+this.user.userName+".jpg";
 
     this.userHistory = [
       {
@@ -34,7 +36,8 @@ export class UserProfileComponent implements OnInit {
       sector:"FMCGAC",
       stockName:"T&C",
       currentPrice: 105,
-      quantity: 550}
+      quantity: 550
+     }
     ]
   }
 

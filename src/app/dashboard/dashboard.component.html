@@ -1,4 +1,6 @@
+
 <div class="panel-header panel-header-lg">
+  <!-- <h3>Top Stock Trend</h3> -->
     <canvas baseChart id="bigDashboardChart"
                 [datasets]="lineBigDashboardChartData"
                 [labels]="lineBigDashboardChartLabels"
@@ -7,6 +9,7 @@
                 [chartType]="lineBigDashboardChartType"
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
+               
 </div>
 
 <div class="main-content">
@@ -14,8 +17,8 @@
     <div class="col-lg-4">
       <div class="card card-chart">
         <div class="card-header">
-          <h5 class="card-category">Global Sales</h5>
-          <h4 class="card-title">Shipped Products</h4>
+          <h5 class="card-category">Stock View</h5>
+          <h5 class="card-title">Price Shockers</h5>
           <div ngbDropdown>
             <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" ngbDropdownToggle>
               <i class="now-ui-icons loader_gear"></i>
@@ -50,8 +53,8 @@
     <div class="col-lg-4 col-md-6">
       <div class="card card-chart">
         <div class="card-header">
-          <h5 class="card-category">2018 Sales</h5>
-          <h4 class="card-title">All products</h4>
+          <h5 class="card-category">Stock View</h5>
+          <h5 class="card-title">Volume Shockers</h5>
           <div ngbDropdown>
             <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" ngbDropdownToggle>
               <i class="now-ui-icons loader_gear"></i>
@@ -87,8 +90,8 @@
     <div class="col-lg-4 col-md-6">
       <div class="card card-chart">
         <div class="card-header">
-          <h5 class="card-category">Email Statistics</h5>
-          <h4 class="card-title">24 Hours Performance</h4>
+          <h5 class="card-category">Statistics</h5>
+          <h5 class="card-title">24 Hours Performance</h5>
         </div>
         <div class="card-body">
           <div class="chart-area">
@@ -104,18 +107,18 @@
         </div>
         <div class="card-footer">
           <div class="stats">
-            <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
+            <i class="now-ui-icons ui-2_time-alarm"></i> Just Updated
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
       <div class="card  card-tasks">
         <div class="card-header ">
-          <h5 class="card-category">Backend development</h5>
-          <h4 class="card-title">Tasks</h4>
+          <h5 class="card-category">Trending</h5>
+          <h4 class="card-title">Top Gainers</h4>
         </div>
         <div class="card-body ">
           <div class="table-full-width table-responsive">
@@ -190,12 +193,12 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="col-md-6">
       <div class="card">
         <div class="card-header">
-          <h5 class="card-category">All Persons List</h5>
-          <h4 class="card-title"> Employees Stats</h4>
+          <h5 class="card-category">Trending</h5>
+          <h4 class="card-title"> Top Gainers</h4>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -205,70 +208,186 @@
                   Name
                 </th>
                 <th>
-                  Country
+                  Last Price
                 </th>
                 <th>
-                  City
+                  % Gain
                 </th>
                 <th class="text-right">
-                  Salary
+                  Volume
                 </th>
               </thead>
               <tbody>
                 <tr>
                   <td>
-                    Dakota Rice
+                    Power Grid Corp
                   </td>
                   <td>
-                    Niger
+                    211.40
                   </td>
                   <td>
-                    Oud-Turnhout
+                     3.91
                   </td>
                   <td class="text-right">
-                    $36,738
+                    8014005
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Minerva Hooper
+                    SBI Life Insura 
                   </td>
                   <td>
-                    Curaçao
+                    933.90
                   </td>
                   <td>
-                    Sinaai-Waas
+                    2.13
                   </td>
                   <td class="text-right">
-                    $23,789
+                    1548515
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Sage Rodriguez
+                    Tata Steel 
                   </td>
                   <td>
-                    Netherlands
+                    936.25
                   </td>
                   <td>
-                    Baileux
+                    1.61
                   </td>
                   <td class="text-right">
-                    $56,142
+                    8526503
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Doris Greene
+                    Divis Labs 
                   </td>
                   <td>
-                    Malawi
+                    3,815.15
                   </td>
                   <td>
-                    Feldkirchen in Kärnten
+                    1.60
                   </td>
                   <td class="text-right">
-                    $63,542
+                    260366
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    NTPC
+                  </td>
+                  <td>
+                    100.45
+                  </td>
+                  <td>
+                    1.52
+                  </td>
+                  <td class="text-right">
+                    2917360
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    TATA Cons. Prod
+                  </td>
+                  <td>
+                    672.10
+                  </td>
+                  <td>
+                    0.99
+                  </td>
+                  <td class="text-right">
+                    616907
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-category">Trending</h5>
+          <h4 class="card-title"> Top Losers</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Name
+                </th>
+                <th>
+                  Last Price
+                </th>
+                <th>
+                  % Loss
+                </th>
+                <th class="text-right">
+                  Volume
+                </th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Britannia
+                  </td>
+                  <td>
+                    3,695.25
+                  </td>
+                  <td>
+                    -1.51
+                  </td>
+                  <td class="text-right">
+                    143041
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Cipla 
+                  </td>
+                  <td>
+                    931.50
+                  </td>
+                  <td>
+                    -1.36
+                  </td>
+                  <td class="text-right">
+                    2833438
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    HUL
+                  </td>
+                  <td>
+                    2,320.50
+                  </td>
+                  <td>
+                    -1.23
+                  </td>
+                  <td class="text-right">
+                    730468
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Shree Cements 
+                  </td>
+                  <td>
+                    28,290.05
+                  </td>
+                  <td>
+                    -0.81
+                  </td>
+                  <td class="text-right">
+                    20380
                   </td>
                 </tr>
                 <tr>
